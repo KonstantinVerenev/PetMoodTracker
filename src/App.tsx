@@ -1,14 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-const App = () => {
+import { BottomTabsNavigator } from './navigation';
+
+export const App: React.FC = () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>App start page</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <BottomTabsNavigator />
+    </NavigationContainer>
   );
 };
-
-export default App;
