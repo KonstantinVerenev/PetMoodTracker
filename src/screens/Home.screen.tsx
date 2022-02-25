@@ -1,27 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
+import { useAppContext } from '../hooks/useAppContext';
 import { MoodPicker } from '../components/MoodPicker';
-import { MoodOption, MoodOptionTimestamp } from '../types';
-import { MoodItemRow } from '../components/MoodItemRow';
 
 export const Home: React.FC = () => {
-  const [moodList, setMoodList] = useState<MoodOptionTimestamp[]>([]);
-
-  const handleSelectMood = useCallback((selectedMood: MoodOption): void => {
-    console.log(selectedMood);
-    setMoodList(prevState => [
-      ...prevState,
-      { mood: selectedMood, timestamp: Date.now() },
-    ]);
-  }, []);
+  const appContext = useAppContext();
 
   return (
     <View style={styles.container}>
-      <MoodPicker handleSelectMood={handleSelectMood} />
-      {moodList.map(item => (
-        <MoodItemRow item={item} key={item.timestamp} />
-      ))}
+      <MoodPicker handleSelectMood={appContext.handleSelectMood} />
     </View>
   );
 };
