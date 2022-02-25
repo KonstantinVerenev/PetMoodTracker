@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { MoodItemRow } from '../components/MoodItemRow';
 
+import { MoodItemRow } from '../components/MoodItemRow';
 import { useAppContext } from '../hooks/useAppContext';
 
 export const History: React.FC = () => {
