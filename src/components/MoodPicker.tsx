@@ -82,10 +82,11 @@ const styles = StyleSheet.create({
     height: 260,
     borderWidth: 2,
     borderColor: theme.darkgrey,
+    marginHorizontal: 10,
     paddingVertical: 30,
     paddingHorizontal: 10,
     borderRadius: 10,
-    justifyContent: 'flex-end',
+    backgroundColor: theme.black02,
   },
   heading: {
     fontSize: 22,
