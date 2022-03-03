@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert, Image } from 'react-native';
 
 import { theme } from '../theme';
 import { MoodOption } from '../types';
@@ -18,11 +18,13 @@ type MoodPickerProps = {
 
 export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
   const [selectedMood, setSelectedMood] = useState<MoodOption>();
+  const [hasSelected, setHasSelected] = useState<boolean>(false);
 
   const handleButton = useCallback(() => {
     if (selectedMood) {
       handleSelectMood(selectedMood);
       setSelectedMood(undefined);
+      setHasSelected(true);
     } else {
       Alert.alert('Choose some mood');
     }
@@ -50,6 +52,20 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
     );
   });
 
+  if (hasSelected) {
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.doneImage}
+          source={require('../../assets/butterflies.png')}
+        />
+        <Pressable style={styles.button} onPress={() => setHasSelected(false)}>
+          <Text style={styles.buttonText}>Choose another!</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>How are you right now?</Text>
@@ -63,11 +79,13 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
 
 const styles = StyleSheet.create({
   container: {
+    height: 260,
     borderWidth: 2,
     borderColor: theme.darkgrey,
     paddingVertical: 30,
     paddingHorizontal: 10,
     borderRadius: 10,
+    justifyContent: 'flex-end',
   },
   heading: {
     fontSize: 22,
@@ -117,5 +135,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  doneImage: {
+    alignSelf: 'center',
   },
 });

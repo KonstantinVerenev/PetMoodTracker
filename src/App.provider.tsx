@@ -3,11 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { MoodOption, MoodOptionTimestamp } from './types';
 
+const DATA_KEY = 'APP_DATA';
+
 type AppData = {
   moodList: MoodOptionTimestamp[];
 };
-
-const DATA_KEY = 'APP_DATA';
 
 const setAppData = async (moodList: MoodOptionTimestamp[]): Promise<void> => {
   try {
