@@ -8,7 +8,7 @@ import {
 import { Home } from '../screens/Home.screen';
 import { History } from '../screens/History.screen';
 import { Analitics } from '../screens/Analitics.screen';
-import { HomeIcon, ListIcon, StatIcon } from '../components/Icons';
+import { HomeIcon, ListIcon, StatIcon } from './NavigationIcons';
 import { theme } from '../theme';
 
 type BottomTabParamList = {
