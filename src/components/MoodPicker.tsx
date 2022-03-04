@@ -1,8 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Alert, Image } from 'react-native';
+import Reanimated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { theme } from '../theme';
 import { MoodOption } from '../types';
+
+const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const moodOptions: MoodOption[] = [
   { emoji: '🧑‍💻', description: 'studious' },
@@ -19,6 +25,14 @@ type MoodPickerProps = {
 export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
   const [selectedMood, setSelectedMood] = useState<MoodOption>();
   const [hasSelected, setHasSelected] = useState<boolean>(false);
+
+  const chooseButtonStyle = useAnimatedStyle(
+    () => ({
+      opacity: selectedMood ? withTiming(1) : withTiming(0.5),
+      transform: [{ scale: selectedMood ? withTiming(1) : withTiming(0.8) }],
+    }),
+    [selectedMood],
+  );
 
   const handleButton = useCallback(() => {
     if (selectedMood) {
@@ -70,9 +84,11 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>How are you right now?</Text>
       <View style={styles.options}>{options}</View>
-      <Pressable style={styles.button} onPress={handleButton}>
+      <ReanimatedPressable
+        style={[styles.button, chooseButtonStyle]}
+        onPress={handleButton}>
         <Text style={styles.buttonText}>Choose</Text>
-      </Pressable>
+      </ReanimatedPressable>
     </View>
   );
 };
