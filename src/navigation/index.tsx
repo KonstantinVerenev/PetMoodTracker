@@ -22,6 +22,10 @@ type Props = BottomTabScreenProps<BottomTabParamList, keyof BottomTabParamList>;
 const BottomTabs = createBottomTabNavigator<BottomTabParamList>();
 
 const screenOptions = ({ route }: Props): BottomTabNavigationOptions => ({
+  headerTitleStyle: {
+    fontFamily: theme.fontFamilyRegular,
+    fontSize: 20,
+  },
   tabBarActiveTintColor: theme.teal,
   tabBarInactiveTintColor: theme.darkgrey,
   tabBarShowLabel: false,

@@ -80,6 +80,7 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
 const styles = StyleSheet.create({
   container: {
     height: 260,
+    justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: theme.darkgrey,
     marginHorizontal: 10,
@@ -90,14 +91,13 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 22,
-    fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 30,
+    fontFamily: theme.fontFamilyBold,
+    color: 'white',
   },
   options: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
   },
   wrapper: {
     alignItems: 'center',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   selectedMood: {
     backgroundColor: theme.teal,
     borderWidth: 2,
-    borderColor: theme.darkgrey,
+    borderColor: 'lightgrey',
   },
   description: {
     width: 95,
@@ -128,14 +128,15 @@ const styles = StyleSheet.create({
     backgroundColor: theme.teal,
     width: 150,
     borderRadius: 20,
-    marginTop: 20,
+
     alignSelf: 'center',
     padding: 10,
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamilyBold,
+    fontSize: 16,
   },
   doneImage: {
     alignSelf: 'center',
