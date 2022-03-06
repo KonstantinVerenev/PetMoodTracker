@@ -7,6 +7,13 @@ import {
   LayoutAnimation,
 } from 'react-native';
 import format from 'date-fns/format';
+import Reanimated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  runOnJS,
+} from 'react-native-reanimated';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 import { theme } from '../theme';
 import { MoodOptionTimestamp } from '../types';
@@ -18,25 +25,55 @@ type MoodItemRowProps = {
 
 export const MoodItemRow: React.FC<MoodItemRowProps> = ({ item }) => {
   const appContext = useAppContext();
+  const translateX = useSharedValue(0);
 
   const handleDelete = useCallback(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     appContext.handleDeleteMood(item);
   }, [appContext, item]);
 
+  const deleteWithDelay = useCallback(() => {
+    setTimeout(() => {
+      handleDelete();
+    }, 300);
+  }, [handleDelete]);
+
+  const panGesture = Gesture.Pan()
+    .activeOffsetX([-1, 1])
+    .activeOffsetY([-100, 100])
+    .onUpdate(event => (translateX.value = event.translationX))
+    .onEnd(event => {
+      if (Math.abs(event.translationX) > 120) {
+        translateX.value = withTiming(1000 * Math.sign(event.translationX));
+        runOnJS(deleteWithDelay)();
+      } else {
+        translateX.value = withTiming(0);
+      }
+    });
+
+  const cardGestureStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateX: translateX.value,
+      },
+    ],
+  }));
+
   return (
-    <View style={styles.moodItem}>
-      <View style={styles.iconAndDescription}>
-        <Text style={styles.moodValue}>{item.mood.emoji}</Text>
-        <Text style={styles.moodDescription}>{item.mood.description}</Text>
-      </View>
-      <Text style={styles.moodDate}>
-        {format(new Date(item.timestamp), 'dd MMM, yyyy - HH:mm')}
-      </Text>
-      <Pressable onPress={handleDelete}>
-        <Text style={styles.deleteText}>Delete</Text>
-      </Pressable>
-    </View>
+    <GestureDetector gesture={panGesture}>
+      <Reanimated.View style={[styles.moodItem, cardGestureStyle]}>
+        <View style={styles.iconAndDescription}>
+          <Text style={styles.moodValue}>{item.mood.emoji}</Text>
+          <Text style={styles.moodDescription}>{item.mood.description}</Text>
+        </View>
+        <Text style={styles.moodDate}>
+          {format(new Date(item.timestamp), 'dd MMM, yyyy - HH:mm')}
+        </Text>
+        <Pressable onPress={handleDelete}>
+          <Text style={styles.deleteText}>Delete</Text>
+        </Pressable>
+      </Reanimated.View>
+    </GestureDetector>
   );
 };
 
