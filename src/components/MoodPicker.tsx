@@ -71,7 +71,7 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
       <View style={styles.container}>
         <Image
           style={styles.doneImage}
-          source={require('../../assets/butterflies.png')}
+          source={require('../../assets/check.png')}
         />
         <Pressable style={styles.button} onPress={() => setHasSelected(false)}>
           <Text style={styles.buttonText}>Choose another!</Text>

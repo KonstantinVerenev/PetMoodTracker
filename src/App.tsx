@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { Platform, UIManager } from 'react-native';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 import { BottomTabsNavigator } from './navigation';
 import { AppProvider } from './App.provider';
-
-import { Platform, UIManager } from 'react-native';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -12,7 +12,7 @@ if (Platform.OS === 'android') {
   }
 }
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
     <AppProvider>
       <NavigationContainer>
@@ -21,3 +21,5 @@ export const App: React.FC = () => {
     </AppProvider>
   );
 };
+
+export default gestureHandlerRootHOC(App);
