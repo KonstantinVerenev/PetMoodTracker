@@ -39,7 +39,7 @@ export const MoodItemRow: React.FC<MoodItemRowProps> = ({ item }) => {
   }, [handleDelete]);
 
   const panGesture = Gesture.Pan()
-    .activeOffsetX([-1, 1])
+    .activeOffsetX([-2, 2])
     .activeOffsetY([-100, 100])
     .onUpdate(event => (translateX.value = event.translationX))
     .onEnd(event => {
