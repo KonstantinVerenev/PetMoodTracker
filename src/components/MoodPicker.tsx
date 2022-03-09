@@ -11,11 +11,11 @@ import { MoodOption } from '../types';
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const moodOptions: MoodOption[] = [
-  { emoji: '🧑‍💻', description: 'studious' },
-  { emoji: '🤔', description: 'pensive' },
-  { emoji: '😊', description: 'happy' },
-  { emoji: '🥳', description: 'celebratory' },
-  { emoji: '😤', description: 'frustrated' },
+  { emoji: '😃', description: 'happy' },
+  { emoji: '😞', description: 'upset' },
+  { emoji: '😡', description: 'angry' },
+  { emoji: '🥱', description: 'tired' },
+  { emoji: '😱', description: 'scared' },
 ];
 
 type MoodPickerProps = {
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   },
   emoji: {
     fontSize: 32,
+    overflow: 'hidden',
   },
   mood: {
     height: 60,
